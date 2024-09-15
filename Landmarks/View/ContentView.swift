@@ -8,45 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            MapView()
-                .frame(height: 300)
-            
-            CircleImage()
-                .offset(y:-130)
-                .padding(.bottom,-130)
-            
-            VStack(alignment:.leading) {
-                
-                Text("Turtle Rock")
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                .foregroundStyle(.black)
-                
-                HStack {
-                    Text("Joshua Tree National Park")
-                    Spacer()
-                    Text("California")
-                }
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                
-                Divider()
-                
-                Text("About Turtle Rock")
-
-                    .font(.title2)
-
-                Text("Descriptive text goes here.")
-                
-            }
-            .padding()
-            
-            Spacer()
+    @State private var selection:Tab = .featured;
+    enum Tab{
+        case featured
+        case list
+    }
+    var body: some View{
+        TabView(selection:$selection) {
+            CategoryHome()
+                .tag(Tab.featured)
+                .tabItem { Label("Featured", systemImage: "star") }
+            LandmarkList()
+                .tag(Tab.list)
+                .tabItem { Label("List", systemImage: "list.bullet") }
         }
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView().environment(ModelData())
 }
