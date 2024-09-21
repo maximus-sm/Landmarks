@@ -14,14 +14,27 @@ struct LandmarkRow: View {
             landmark.image
                 .resizable()
                 .frame(width: 50, height: 50)
-                .clipShape(.rect(cornerRadius: 3))
-            Text(landmark.name)
+                .clipShape(.rect(cornerRadius: 5))
+            
+            VStack(alignment:.leading) {
+                Text(landmark.name)
+                    .foregroundStyle(.foreground)
+                    .bold()
+                #if !os(watchOS)
+                Text(landmark.park)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                #endif
+                
+            }
+            
             Spacer()
             
             if(landmark.isFavorite){
                 Image(systemName:"heart.fill").foregroundStyle(.red)
             }
         }
+        .padding(.vertical,4)
     }
 }
 
@@ -35,3 +48,9 @@ struct LandmarkRow: View {
 }
 
 
+
+struct Previews_LandmarkRow_LibraryContent: LibraryContentProvider {
+    var views: [LibraryItem] {
+        LibraryItem(/*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/)
+    }
+}
