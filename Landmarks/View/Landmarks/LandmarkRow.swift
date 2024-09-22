@@ -25,7 +25,6 @@ struct LandmarkRow: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 #endif
-                
             }
             
             Spacer()
